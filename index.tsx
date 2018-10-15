@@ -1,7 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+const HelloWorld = () => {
+  return <div>Hello World</div>;
+};
+
 ReactDOM.render(
-    React.createElement("div", null, "Hello World"),
+    <HelloWorld/>,
     document.getElementById("root")
 );
