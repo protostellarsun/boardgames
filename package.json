@@ -1,24 +1,30 @@
 {
-  "name": "boardgames",
-  "version": "0.1",
-  "description": "Testing out boardgame.io framework",
-  "main": "index.js",
-  "author": "Yue Ru Sun",
-  "license": "MIT",
-  "private": false,
-  "scripts": {
-    "start": "webpack-dev-server --mode=development index.js"
-  },
-  "dependencies": {
-    "boardgame.io": "^0.25.5",
-    "prettier": "^1.14.3",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "rebass": "^2.3.4",
-    "webpack-cli": "^3.1.2"
-  },
-  "devDependencies": {
-    "webpack": "^4.20.2",
-    "webpack-dev-server": "^3.1.9"
-  }
+    "name": "boardgames",
+    "version": "0.1",
+    "description": "Testing out boardgame.io framework",
+    "main": "index.js",
+    "author": "Yue Ru Sun",
+    "license": "MIT",
+    "private": false,
+    "scripts": {
+        "start": "webpack-dev-server --mode=development index.tsx",
+        "lint": "yarn tslint",
+        "prettier": "prettier --write",
+        "prettify": "yarn run prettier *.{js,jsx,ts,tsx,json}"
+    },
+    "dependencies": {
+        "boardgame.io": "^0.25.5",
+        "prettier": "^1.14.3",
+        "react": "^16.5.2",
+        "react-dom": "^16.5.2",
+        "rebass": "^2.3.4",
+        "tslint": "^5.11.0",
+        "tslint-react": "^3.6.0",
+        "typescript": "^3.1.1",
+        "webpack-cli": "^3.1.2"
+    },
+    "devDependencies": {
+        "webpack": "^4.20.2",
+        "webpack-dev-server": "^3.1.9"
+    }
 }
