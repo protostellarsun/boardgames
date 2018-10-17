@@ -21,7 +21,7 @@ export default class Die extends React.PureComponent<DieProps> {
 
         return (
             <StyledBox m={1} bg={colour}>
-                <Dots value={value} />
+                <Dots key={`dots-${value}`} value={value} />
             </StyledBox>
         );
     }
