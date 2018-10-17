@@ -1,15 +1,19 @@
-import React from 'react';
-import { Box, Flex } from 'rebass';
+import React, { Fragment } from 'react';
+import { Box, Flex, Text } from 'rebass';
 
 import Die, { DieProps, EmptyDie } from './components/Die';
 import { BOARD_SIZE_X, BOARD_SIZE_Y } from './constants';
 
 class Board extends React.Component<any> {
-    onClick(id) {
-        if (this.isActive(id)) {
-            this.props.moves.clickCell(id);
+    onClick(idx) {
+        if (this.isActive(idx)) {
+            this.props.moves.clickCell(idx);
             this.props.events.endTurn();
         }
+    }
+    pickDie(idx) {
+        // TODO record picked die in component state.
+        this.props.moves.removeDieFromPool(idx);
     }
 
     isActive(id) {
@@ -24,7 +28,8 @@ class Board extends React.Component<any> {
 
     render() {
         const {
-            G: { cells },
+            G: { cells, pool },
+            ctx: { phase },
         } = this.props;
 
         const cellsArray: DieProps[] = cells.map(
@@ -51,7 +56,32 @@ class Board extends React.Component<any> {
             );
         }
 
-        return <Box>{rows.reverse()}</Box>;
+        return (
+            <Fragment>
+                <Flex>
+                    Phase: {phase}
+                    <div onClick={() => this.props.moves.rollDice()}>
+                        [Roll dice]
+                    </div>
+                    <div onClick={() => this.props.moves.pickDie()}>
+                        [Pick dice]
+                    </div>
+                </Flex>
+                Pool
+                <Flex pb={5}>
+                    {pool.map((cell, idx) => (
+                        <div
+                            key={`pool-${idx}-${cell.colour}-${cell.value}`}
+                            onClick={() => this.pickDie(idx)}
+                        >
+                            <Die colour={cell.colour} value={cell.value} />
+                        </div>
+                    ))}
+                </Flex>
+                Board
+                <Box>{rows.reverse()}</Box>
+            </Fragment>
+        );
     }
 }
 
