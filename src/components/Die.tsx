@@ -4,26 +4,27 @@ import styled from 'styled-components';
 import Dots from './Dots';
 
 const StyledBox = styled(Box)`
-    border-radius: 20%;
     height: 50px;
     width: 50px;
+    border-radius: 20%;
+    border: 1px solid gray;
 `;
 
-type Props = {
+export type DieProps = {
     value: number;
     colour: string;
 };
 
-class Die extends React.PureComponent<Props> {
+export default class Die extends React.PureComponent<DieProps> {
     render() {
         const { value, colour } = this.props;
 
         return (
-            <StyledBox bg={colour}>
+            <StyledBox m={1} bg={colour}>
                 <Dots value={value} />
             </StyledBox>
         );
     }
 }
 
-export default Die;
+export const EmptyDie = () => <StyledBox m={1} />;
