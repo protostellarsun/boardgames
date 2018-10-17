@@ -4,7 +4,16 @@ import { Box, Flex, Text } from 'rebass';
 import Die, { DieProps, EmptyDie } from './components/Die';
 import { BOARD_SIZE_X, BOARD_SIZE_Y } from './constants';
 
-class Board extends React.Component<any> {
+type BoardState = {
+    pickedDie: any;
+};
+
+class Board extends React.Component<any, BoardState> {
+    constructor(props) {
+        super(props);
+        this.state = { pickedDie: null };
+    }
+
     onClick(idx) {
         if (this.isActive(idx)) {
             this.props.moves.clickCell(idx);
@@ -12,7 +21,9 @@ class Board extends React.Component<any> {
         }
     }
     pickDie(idx) {
-        // TODO record picked die in component state.
+        console.info('picked', this.props.G.pool[idx]);
+        this.setState({ pickedDie: this.props.G.pool[idx] });
+
         this.props.moves.removeDieFromPool(idx);
     }
 
@@ -67,6 +78,17 @@ class Board extends React.Component<any> {
                         [Pick dice]
                     </div>
                 </Flex>
+                <Box>
+                    Picked: {this.state.pickedDie && this.state.pickedDie.value}
+                    {this.state.pickedDie ? (
+                        <Die
+                            colour={this.state.pickedDie.colour}
+                            value={this.state.pickedDie.value}
+                        />
+                    ) : (
+                        <EmptyDie />
+                    )}
+                </Box>
                 Pool
                 <Flex pb={5}>
                     {pool.map((cell, idx) => (
