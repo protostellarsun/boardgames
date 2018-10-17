@@ -15,12 +15,17 @@ class Board extends React.Component<any, BoardState> {
     }
 
     onClick(idx) {
-        if (this.isActive(idx)) {
-            this.props.moves.clickCell(idx);
+        if (this.state.pickedDie) {
+            this.props.moves.clickCell(idx, this.state.pickedDie);
+            this.setState({ pickedDie: null });
             this.props.events.endTurn();
         }
     }
     pickDie(idx) {
+        if (this.state.pickedDie) {
+            console.warn('Place current die before picking a new one.');
+            return;
+        }
         console.info('picked', this.props.G.pool[idx]);
         this.setState({ pickedDie: this.props.G.pool[idx] });
 

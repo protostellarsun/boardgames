@@ -11,10 +11,10 @@ const Sagrada = Game({
     }),
 
     moves: {
-        clickCell(G, ctx, id) {
-            console.info('cell clicked', id);
+        clickCell(G, ctx, id, die) {
+            console.info('cell clicked', id, die);
             const cells = [...G.cells];
-            cells[id] = { colour: 'gray', value: 2 };
+            cells[id] = { colour: die.colour, value: die.value };
             return { ...G, cells };
         },
         rollDice(G, ctx) {
@@ -42,8 +42,20 @@ const Sagrada = Game({
             },
             {
                 name: 'Pick',
-                allowedMoves: ['removeDieFromPool'],
-                endPhaseIf: (G, ctx) => G.pool.length === 0,
+                allowedMoves: ['removeDieFromPool', 'clickCell'],
+                /* End the phase when expected number of dice has been removed from the pool and placed on the board. */
+                endPhaseIf: (G, ctx) =>
+                    G.pool.length === 1 &&
+                    G.cells.filter((cell) => !!cell).length % 4 === 0,
+                onPhaseEnd: (G, ctx) => {
+                    // TODO: put last die in progress tracker.
+                    if (G.pool.length === 1) {
+                        const pool = [];
+                        return { ...G, pool: [] };
+                    } else {
+                        return G;
+                    }
+                },
             },
         ],
     },
