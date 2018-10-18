@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Box, Flex, Text } from 'rebass';
 
-import Die, { DieProps, EmptyDie } from './components/Die';
+import Die, { DieType, EmptyDie } from './components/Die';
 import { BOARD_SIZE_X, BOARD_SIZE_Y } from './constants';
 
 type BoardState = {
@@ -48,7 +48,7 @@ class Board extends React.Component<any, BoardState> {
             ctx: { phase },
         } = this.props;
 
-        const cellsArray: DieProps[] = cells.map(
+        const cellsArray: DieType[] = cells.map(
             (cell, idx) =>
                 !!cell ? (
                     <Die

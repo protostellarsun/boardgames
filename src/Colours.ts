@@ -30,9 +30,18 @@ export type DieColourString =
     | 'blue'
     | 'purple';
 
+export const DieColourNames: DieColourString[] = [
+    'red',
+    'orange',
+    'yellow',
+    'green',
+    'blue',
+    'purple',
+];
+
 export type ColorString = MonoColourString | DieColourString;
 
-export const nameToColourMap: { [key in ColorString]: string } = {
+const nameToColourMap: { [key in ColorString]: string } = {
     "red": scarlet,
     "orange": sun,
     "yellow": lemon,
@@ -45,3 +54,5 @@ export const nameToColourMap: { [key in ColorString]: string } = {
     'mono.light': silverChalice,
     'mono.white': white,
 };
+
+export const getColour = (name) => nameToColourMap[name];

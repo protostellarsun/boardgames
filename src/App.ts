@@ -2,6 +2,8 @@ import { Game } from 'boardgame.io/core';
 import { Client } from 'boardgame.io/react';
 
 import Board from './Board';
+import { DieColourNames } from './Colours';
+import { DieType } from './components/Die';
 import { BOARD_SIZE_X, BOARD_SIZE_Y } from './constants';
 
 const Sagrada = Game({
@@ -19,9 +21,12 @@ const Sagrada = Game({
         },
         rollDice(G, ctx) {
             console.info('Rolling dice...');
-            const pool = [];
+            const pool: DieType[] = [];
             for (let i = 0; i < 5; i++) {
-                pool.push({ colour: 'gray', value: ctx.random.D6() });
+                pool.push({
+                    colour: DieColourNames[ctx.random.D6() - 1],
+                    value: ctx.random.D6(),
+                });
             }
             return { ...G, pool };
         },

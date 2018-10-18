@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box } from 'rebass';
 import styled from 'styled-components';
+import { DieColourString, getColour } from './../Colours';
 import Dots from './Dots';
 
 const StyledBox = styled(Box)`
@@ -10,17 +11,17 @@ const StyledBox = styled(Box)`
     border: 1px solid gray;
 `;
 
-export type DieProps = {
+export type DieType = {
     value: number;
-    colour: string;
+    colour: DieColourString;
 };
 
-export default class Die extends React.PureComponent<DieProps> {
+export default class Die extends React.PureComponent<DieType> {
     render() {
         const { value, colour } = this.props;
 
         return (
-            <StyledBox m={1} bg={colour}>
+            <StyledBox m={1} bg={getColour(colour)}>
                 <Dots key={`dots-${value}`} value={value} />
             </StyledBox>
         );
